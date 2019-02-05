@@ -55,7 +55,7 @@ function parsePage(data) {
         .each(function(i,e){
             plusLinks.add(e.pathname);
             if(nonPlusLinks.has(e.pathname)){
-                console.log("removing pluslink from nonpluslinks. this shouldnt happen", e.pathname);
+                //console.log("removing pluslink from nonpluslinks. this shouldnt happen", e.pathname);
                 nonPlusLinks.delete(e.pathname);
             }
         }
@@ -76,10 +76,11 @@ function update(plusArticlesCacheMap, nonPlusArticlesCacheMap, plusLinks, nonPlu
     for (let link of plusLinks.keys()) {
         console.log(link);
         if(nonPlusArticlesCacheMap.has(link)){
-            console.log("Found plus article thats was previous open", link);
+            
             if(plusArticlesCacheMap.has(link)){
                 console.log("Link is already in plusArticles cache");
             }else{
+                console.log("Found plus article thats was previous open", link);
                 plusArticlesCacheMap.set(link, nonPlusArticlesCacheMap.get(link));
                 nonPlusArticlesCacheMap.delete(link);
             }

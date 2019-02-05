@@ -3,12 +3,14 @@
 jQuery(document).ready(function () {
 
     $('.Vg5tT').remove(); //Remove ads
+    $('.AxIVT').remove(); //Remove paywall wrap
+
     MutationObserver = window.MutationObserver || window.WebKitMutationObserver;
 
     var observer = new MutationObserver(function (mutations, observer) {
         $(mutations).each(function (i) {
             let aa = this;
-            console.log(aa);
+            //console.log(aa);
             /*if (this.previousSibling != null && this.previousSibling.id == "ad-blocker-dialog-popup") {
                 removeAdblockerPopup();
             }*/
@@ -28,21 +30,19 @@ jQuery(document).ready(function () {
         var relativePath = window.location.pathname;
         console.log(relativePath);
             //Visiting an premium article
-            if(relativePath.endsWith('/promo')){
-                console.log('plus article');    
+            //if(relativePath.endsWith('/promo')){
+            //    console.log('plus article');    
                 $('.AxIVT').remove()
                 $(cache).each(function(){
                     
                     if(relativePath.includes(this.key) ){
                         console.log("Cachehit!");
-                        let content = decompress(this.value);
-                        console.log(content);
-                        $(content).remove('.AxIVT');
-                        console.log(content)
-                        $('main').replaceWith(content);
-                        //$('.AxIVT').remove();
-                        //replaceContent(decompress(this.value));//});
-                        //return false; //break loop*/
+                        var content = decompress(this.value);
+                        //content = $(content).children().removeClass('_3p4DP');                         
+                        console.log($(content));
+                        setTimeout(function(){ $('main').replaceWith(content); }, 2000);
+                        //replaceWith(content);
+                        
                     }
                 });
                     
@@ -69,23 +69,26 @@ jQuery(document).ready(function () {
                     }
                 });
                 */
-            }else{
-                console.log("Main page");
-                /*
+            //}else{
+             //   console.log("Main page");
+                
                 //main page relace icons
                 $(cache).each(function(i,e){
                     var link = e.key;
+                    $('a[href="'+link+'"]').addClass("plus-cached");
+                    $('a[href="'+link+'"] > div > h3').addClass("plus-cached");
                     
                     //Senaste nyheter - top of page
-                    $('a[href="'+link+'"] h3 .premium-label.m-icon-plus').addClass("cached-content");
+                    /*$('a[href="'+link+'"] h3 .premium-label.m-icon-plus').addClass("cached-content");
                     
                     //Right now
                     $('.right-now a[href="'+link+'"]').siblings('span.premium-label').addClass('cached-content');
                     //Rest of page
                     $('.content a[href="'+link+'"] ').parent().find('.premium-label.m-icon-plus').addClass('cached-content');
-                });
                 */
-            }
+                });
+                
+            //}
     });
 });
 

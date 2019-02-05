@@ -1,3 +1,4 @@
-.premium-label.cached-content::before{
-    color:orange;
+
+.plus-cached, h3.plus-cached{
+    color:green;
 }
