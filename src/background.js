@@ -55,7 +55,7 @@ function parsePage(data) {
         .each(function(i,e){
             plusLinks.add(e.pathname);
             if(nonPlusLinks.has(e.pathname)){
-                //console.log("removing pluslink from nonpluslinks. this shouldnt happen", e.pathname);
+                console.log("removing pluslink from nonpluslinks. this shouldnt happen", e.pathname);
                 nonPlusLinks.delete(e.pathname);
             }
         }
@@ -94,6 +94,14 @@ function update(plusArticlesCacheMap, nonPlusArticlesCacheMap, plusLinks, nonPlu
             newArticles.push(link);
         }
     };
+
+    //Remove articles from nonPlusArticelsCache that are not on frontpage anymore
+    for(let link of nonPlusArticlesCacheMap.keys()){
+        if(!nonPlusLinks.has(link)){
+            console.log("deleting old link from cache: "+link);
+            nonPlusArticlesCacheMap.delete(link);
+        }
+    }
 
 
     if(newArticles.length > 0){
