@@ -153,12 +153,14 @@ function whiteWashContent(str){
 
 function removeElements(data){
     let content =$(data);
-    //ads
+    $(content).find('._2BIi5').remove();
+    $(content).find('.AxIVT').remove();
     $(content).find('.Vg5tT').remove();
     //fb and twitter
     $(content).find('._2XS3K').remove();
     //read more about..
-    $(content).find('._3u81U').remove();
+    //$(content).find('._3u81U').remove();
     
+
     return content; 
 }

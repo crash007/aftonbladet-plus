@@ -1,12 +1,8 @@
 function save_options() {
     var intervall = Number(document.getElementById('intervall').value);
-    var notify = document.getElementById('notify').checked;
-    console.log("Intervall: "+intervall);
-    console.log("Notify: "+ notify);
-
+    
     chrome.storage.local.set({
-        'intervall': intervall,
-        'notify': notify
+        'intervall': intervall
     }, function () {
 
         chrome.alarms.clear("checkerAlarm", function(wasCleared){
@@ -27,12 +23,10 @@ function save_options() {
 
 function restore_options() {
     chrome.storage.local.get({
-        'intervall': 15,
-        'notify': false
+        'intervall': 15
     }, function (items) {
         document.getElementById('intervall').value = items.intervall;
-        document.getElementById('notify').checked = items.notify;
-    });
+        });
 
     if(typeof chrome.storage.local.getBytesInUse == 'function') { 
         chrome.storage.local.getBytesInUse(function (bytes) {
@@ -45,34 +39,14 @@ function restore_options() {
     readCacheFromStorage(function(linksCache){
         console.log(linksCache.length);
         document.getElementById('article-count').textContent = linksCache.length;
-    });
-
-}
-
-function exportData() {
-    console.log("exporting data");
-    readCacheFromStorage(function (linksCache) {
-        
-        var result =[];
-        console.log(linksCache);
-        $(linksCache).each(function(){
-            result.push(this.key, decompress(this.value));
-        });
-
-        var linksCacheStr = JSON.stringify(result);
-        console.log(linksCacheStr);
-
-        // Save as file
-        var blob = new Blob([linksCacheStr], {type: "application/json"});
-        chrome.downloads.download({
-            url: URL.createObjectURL(blob),
-            filename: 'export.json',
-            conflictAction : 'uniquify'
+        $.each(linksCache, function(index, link) {
+            console.log(link.key);
+            $("#plus-links").append('<li><a href="https://www.aftonbladet.se'+link.key+'">'+link.key+'</a></li>');
         });
     });
+
 }
 
 
 document.addEventListener('DOMContentLoaded', restore_options);
 document.getElementById('save').addEventListener('click', save_options);
-document.getElementById('export').addEventListener('click', exportData);
