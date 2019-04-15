@@ -41,7 +41,7 @@ function restore_options() {
         document.getElementById('article-count').textContent = linksCache.length;
         $.each(linksCache, function(index, link) {
             console.log(link.key);
-            $("#plus-links").append('<li><a href="https://www.aftonbladet.se'+link.key+'">'+link.key+'</a></li>');
+            $("#plus-links").prepend('<li><a target="_blank" href="https://www.aftonbladet.se'+link.key+'">'+link.key+'</a></li>');
         });
     });
 

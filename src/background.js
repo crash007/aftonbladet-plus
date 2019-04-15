@@ -34,7 +34,6 @@ function parsePage(data) {
     var nonPlusLinks= new Set();
 
     $(data).find('.abThemeGradientPage').find(':not([href="#plus-logo"])').closest('a').each(function(i,e){
-    //$(data).find('.abThemeGradientPage').find('a').each(function(i,e){
         if(!(e.pathname.includes('kampanj') 
             || e.pathname.includes('rabattkod') 
             || e.pathname.includes('email-protection') 
@@ -43,7 +42,8 @@ function parsePage(data) {
             || e.pathname.includes('/hc/sv')
             || e.pathname.includes('/hjalpinfo/')
             || e.pathname.includes('/aftonbladet-tools/forms/')
-            || e.pathname.includes('schlagerbloggen/')
+            || e.pathname.includes('schlagerbloggen/'
+	    || e.pathname == '/')
 
             
             )){

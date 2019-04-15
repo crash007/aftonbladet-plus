@@ -2,8 +2,25 @@
 
 jQuery(document).ready(function () {
 
+ MutationObserver = window.MutationObserver || window.WebKitMutationObserver;
+
+    var observer = new MutationObserver(function (mutations, observer) {
+        //console.log(window.location.pathname);
+        $(mutations).each(function (i) {
+
+            let aa = this;
+            console.log(aa.target);
+	});
+    }); 
+
+   observer.observe(document, {
+        subtree: true,
+        childList: true
+    });
+
     $('.Vg5tT').remove(); //Remove ads
     $('.AxIVT').remove(); //Remove paywall wrap
+    $('._2BIi5').remove();
 
     setTimeout(function () {
         readPlusArticlesCacheFromStorage(function (cache) {
@@ -19,7 +36,7 @@ jQuery(document).ready(function () {
             console.log(relativePath);
             $(cache).each(function () {
 
-                if (relativePath.includes(this.key)) {
+                if (relativePath.includes(this.key) && this.key.length > 3) {
                     console.log("Cachehit!");
                     var content = decompress(this.value);
                     $('main').replaceWith(content);
@@ -31,12 +48,13 @@ jQuery(document).ready(function () {
         }); 
         console.log("dssdfdsf")
         $('.Vg5tT').remove(); //Remove ads
-        //$('.AxIVT').remove(); //Remove paywall wrap
-    }, 3000);
+        $('.AxIVT').remove(); //Remove paywall wrap
+ 	$('._2BIi5').remove();
+    }, 1);
 });
 
 
-    /*
+ /*   
     MutationObserver = window.MutationObserver || window.WebKitMutationObserver;
 
     var observer = new MutationObserver(function (mutations, observer) {
@@ -45,7 +63,8 @@ jQuery(document).ready(function () {
 
             let aa = this;
             console.log(aa.target);
-            $('.Vg5tT').remove()
+});    
+       $('.Vg5tT').remove()
             let bb = $('.AxIVT').remove();
             if (bb != null && window.location.pathname != '/') {
                 console.log("removed paywall");
