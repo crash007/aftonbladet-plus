@@ -1,0 +1,21 @@
+a, a:hover, a:visited {
+    color:black;
+}
+
+h1 {
+    text-align: center;
+    margin-top: 0.2em;
+    margin-bottom: 1em;
+}
+
+h3,h4 {
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 25px;
+    letter-spacing: -0.5px;
+}
+
+ul {
+    list-style-type: none;
+}

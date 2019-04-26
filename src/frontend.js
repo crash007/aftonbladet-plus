@@ -40,16 +40,21 @@ jQuery(document).ready(function () {
                     console.log("Cachehit!");
                     var content = decompress(this.value);
                     $('main').replaceWith(content);
+                    $('.Vg5tT').remove(); //Remove ads
+                    $('.AxIVT').remove(); //Remove paywall wrap
+                    $('._2BIi5').remove();
+
+                    $('aside').remove();
 
                 }
             });
-            
+
+
+            //$('.abAside').remove();
 
         }); 
-        console.log("dssdfdsf")
-        $('.Vg5tT').remove(); //Remove ads
-        $('.AxIVT').remove(); //Remove paywall wrap
- 	$('._2BIi5').remove();
+
+
     }, 1);
 });
 

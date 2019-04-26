@@ -2,56 +2,59 @@
 <html>
 
 <head>
-  <title>Settings</title>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="css/bootstrap-reboot.min.css">
+    <title>Settings</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="css/bootstrap-reboot.min.css">
+    <link rel="stylesheet" href="options.css">
 </head>
 
 <body>
-  <div class="container">
+<div class="container">
+    <h1>Aftonbladet +</h1>
+    <ul id="plus-links" style="color:black">
 
     <div class="settings" style="padding: 1rem; border-width: .2rem; border: solid #f7f7f9;">
-      <legend>Inställningar</legend>
-      <div>
-        <label for="intervall">Intervall att se efter nya artiklar:</label>
-        <select id="intervall">
-          <option value="10">10 min</option>
-          <option value="15">15 min</option>
-          <option value="30">30 min</option>
-          <option value="45">45 min</option>
+        <legend>Inställningar</legend>
+        <div>
+            <label for="intervall">Intervall att se efter nya artiklar:</label>
+            <select id="intervall">
+                <option value="10">10 min</option>
+                <option value="15">15 min</option>
+                <option value="30">30 min</option>
+                <option value="45">45 min</option>
 
-        </select>
-      </div>
+            </select>
+        </div>
 
-      <button id="save">Spara</button>
-      <p id="status"></p>
+        <button id="save">Spara</button>
+        <p id="status"></p>
     </div>
 
     <div class="settings" style="padding: 1rem; border-width: .2rem; border: solid #f7f7f9;">
-     
-      <div id="mem-div" style="display: none;">
-        <p style="white-space: nowrap;"><span id="mem"></span> Bytes upptagna av max 5 242 880 i minnet. </p>
-      </div>
 
-      <div>
-        <p style="white-space: nowrap;"><span id="article-count"></span> artiklar i minnet. </p>
-      </div>
-      <ul id="plus-links">
-        
-      </ul>
+        <div id="mem-div" style="display: none;">
+            <p style="white-space: nowrap;"><span id="mem"></span> Bytes upptagna av max 5 242 880 i minnet. </p>
+        </div>
+
+        <div>
+            <p style="white-space: nowrap;"><span id="article-count"></span> artiklar i minnet. </p>
+        </div>
+
+
+        </ul>
 
     </div>
 
 
-  </div>
+</div>
 
-  <script src="libs/jquery-3.3.1.min.js"></script>
-  <script src="common.js"></script>
-  <script src="libs/compression.js"></script>
-  <script src="libs/lz-string.js"></script>
-  <script src="options.js"></script>
-  </div>
+<script src="libs/jquery-3.3.1.min.js"></script>
+<script src="common.js"></script>
+<script src="libs/compression.js"></script>
+<script src="libs/lz-string.js"></script>
+<script src="options.js"></script>
+</div>
 </body>
 
 </html>
