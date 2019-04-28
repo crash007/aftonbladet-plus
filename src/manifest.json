@@ -17,7 +17,7 @@
 		"scripts": ["libs/jquery-3.3.1.min.js", "common.js", "background.js", "libs/lz-string.js", "libs/compression.js"]
 	},
 	"browser_action": {
-		"default_popup": "options.html",
+		"default_popup": "popup.html",
 		"default_icon": {
 			"16": "data/icon_16x16.png",
 			"32": "data/icon_32x32.png",

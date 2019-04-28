@@ -35,16 +35,6 @@ function restore_options() {
             document.getElementById('mem-div').style.display="block";
         }); 
     }
-    
-    readCacheFromStorage(function(linksCache){
-        console.log(linksCache.length);
-        document.getElementById('article-count').textContent = linksCache.length;
-        $.each(linksCache, function(index, link) {
-            console.log(link.key);
-            let name = link.key.substring(link.key.lastIndexOf("/") + 1, link.key.length).replace(new RegExp('-','g'),' ');
-            $("#plus-links").prepend('<li><a target="_blank" href="https://www.aftonbladet.se'+link.key+'"><h3>'+name.charAt(0).toUpperCase() + name.slice(1)+'</h3></a></li>');
-        });
-    });
 
 }
 

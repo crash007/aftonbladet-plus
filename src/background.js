@@ -125,8 +125,8 @@ function getArticleContent(link, cacheMap){
     return jQuery.ajax({
         url: "https://www.aftonbladet.se" + link,
         success: function (data) {        
-            let content = removeElements(data);
-            let result = $(content).find('main')[0];
+            //let data = removeElements(data);
+            let result = $(data).find('main')[0];
             
             if(result !=null){
             

@@ -39,7 +39,8 @@ function saveCachemapToStorageAndUpdateBadge(plusArticlesCacheMap, nonPlusArticl
                 nonPlusArticlesCache.shift();
                 set(plusArticlesCache, nonPlusArticlesCache);
             } else{
-                chrome.browserAction.setBadgeText({ "text": plusArticlesCache.length+"/"+nonPlusArticlesCache.length });
+                //chrome.browserAction.setBadgeText({ "text": plusArticlesCache.length+"/"+nonPlusArticlesCache.length });
+                chrome.browserAction.setBadgeText({ "text": plusArticlesCache.length.toString() });
             }
         });
     }

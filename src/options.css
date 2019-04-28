@@ -6,16 +6,20 @@ h1 {
     text-align: center;
     margin-top: 0.2em;
     margin-bottom: 1em;
+    font-family: Verdana, Arial, Helvetica, sans-serif;
 }
 
 h3,h4 {
-    font-family: Verdana, Arial, Helvetica, sans-serif;
+    font: 18px Arial,Helvetica,Verdana,Geneva,sans-serif;    
     font-weight: 700;
-    font-size: 18px;
     line-height: 25px;
-    letter-spacing: -0.5px;
 }
 
 ul {
     list-style-type: none;
+    white-space: nowrap;
+}
+
+._3lW80 .e4Uu9{
+    display: none;
 }
