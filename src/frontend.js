@@ -27,6 +27,17 @@ jQuery(document).ready(function () {
         inject();
     }
 
+    var css = document.createElement("style");
+    css.type = "text/css";
+
+    css.innerHTML = '.icon \{ \
+                color: rgba(0, 0, 0, 0); \
+                background: url("' + chrome.extension.getURL("icon.svg") + '") no-repeat center; \
+                background-size: cover;\
+        }';
+
+    document.head.appendChild(css);
+
 
 });
 
@@ -35,8 +46,10 @@ function inject() {
         //main page relace icons
         $(cache).each(function (i, e) {
             var link = e.key;
-            $('a[href="' + link + '"]').addClass("plus-cached");
-            $('a[href="' + link + '"] > div > h3').addClass("plus-cached");
+            //$('a[href="' + link + '"]').addClass("plus-cached");
+            let plus = $('a[href="' + link + '"] svg');
+            $(plus).addClass("icon");
+            $(plus).find('use').remove();
 
         });
 
@@ -55,7 +68,7 @@ function inject() {
                     //$('main').replaceWith(content);
                     $('main ._3p4DP._1lEgk div').replaceWith(content);
                     
-                    $('main ._3p4DP._1lEgk div').append('<div class="AxIVT"><div id="pymComponent0"/></div> ');
+                    //$('main ._3p4DP._1lEgk div').append('<div class="AxIVT"><div id="pymComponent0"/></div> ');
                     $('main').addClass('injected');
                     
                     if($(articleImageDiv).hasClass('lcgxF')){
@@ -66,13 +79,11 @@ function inject() {
                 //$('.AxIVT').remove(); //Remove paywall wrap
                 //$('._2BIi5').remove();
 
-                //$('aside').remove();
+                $('aside').remove();
 
             }
         });
 
-
-        //$('.abAside').remove();
 
     });
 }

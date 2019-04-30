@@ -1,46 +1,72 @@
 {
-	"manifest_version": 2,
-	"name": "__MSG_appName__",
-	"short_name": "STay",
-	"version": "0.15",
-	"description": "__MSG_appDesc__",
-	"default_locale": "sv",
-	"author": "crash007",
-	"permissions": ["downloads","storage", "alarms",  "https://*.aftonbladet.se/", "http://*.aftonbladet.se/" ],
-	"icons": {
-		"16": "data/icon_16x16.png",
-		"32": "data/icon_32x32.png",
-		"48": "data/icon_48x48.png",
-		"128": "data/icon_128x128.png"
-	},
-	"background": {
-		"scripts": ["libs/jquery-3.3.1.min.js", "common.js", "background.js", "libs/lz-string.js", "libs/compression.js"]
-	},
-	"browser_action": {
-		"default_popup": "popup.html",
-		"default_icon": {
-			"16": "data/icon_16x16.png",
-			"32": "data/icon_32x32.png",
-			"48": "data/icon_48x48.png",
-			"128": "data/icon_128x128.png"
-		  }
-	},
-	"content_scripts": [
-        {
-			"css": [ "frontend.css"],
-            "matches": ["https://*.aftonbladet.se/*", "http://*.aftonbladet.se/"],
-            "js": ["libs/jquery-3.3.1.min.js", "common.js", "frontend.js", "libs/lz-string.js","libs/compression.js"],
-            "run_at": "document_start"
-        }
-	],
-	"options_ui": {
-		"page": "options.html",
-		"open_in_tab": true
-	},
-	"browser_specific_settings": {
-		"gecko": {
-		  "id": "{182738d2-c07b-4c5d-9797-bf42adbb9c78}"
-		}
-	  }
+  "manifest_version": 2,
+  "name": "__MSG_appName__",
+  "short_name": "STay",
+  "version": "0.15",
+  "description": "__MSG_appDesc__",
+  "default_locale": "sv",
+  "author": "crash007",
+  "permissions": [
+    "downloads",
+    "storage",
+    "alarms",
+    "https://*.aftonbladet.se/",
+    "http://*.aftonbladet.se/"
+  ],
+  "icons": {
+    "16": "data/icon_16x16.png",
+    "32": "data/icon_32x32.png",
+    "48": "data/icon_48x48.png",
+    "128": "data/icon_128x128.png"
+  },
+  "background": {
+    "scripts": [
+      "libs/jquery-3.3.1.min.js",
+      "common.js",
+      "background.js",
+      "libs/lz-string.js",
+      "libs/compression.js"
+    ]
+  },
+  "browser_action": {
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "data/icon_16x16.png",
+      "32": "data/icon_32x32.png",
+      "48": "data/icon_48x48.png",
+      "128": "data/icon_128x128.png"
+    }
+  },
+  "content_scripts": [
+    {
+      "css": [
+        "frontend.css"
+      ],
+      "matches": [
+        "https://*.aftonbladet.se/*",
+        "http://*.aftonbladet.se/"
+      ],
+      "js": [
+        "libs/jquery-3.3.1.min.js",
+        "common.js",
+        "frontend.js",
+        "libs/lz-string.js",
+        "libs/compression.js"
+      ],
+      "run_at": "document_start"
+    }
+  ],
+  "options_ui": {
+    "page": "options.html",
+    "open_in_tab": true
+  },
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "{182738d2-c07b-4c5d-9797-bf42adbb9c78}"
+    }
+  },
+  "web_accessible_resources": [
+    "icon.svg"
+  ]
 
 }
