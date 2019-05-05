@@ -30,8 +30,8 @@ function checkForUpdates() {
 //Collect new articles from main page
 function parsePage(data) {
 
-    var plusLinks= new Set();
-    var nonPlusLinks= new Set();
+    var plusLinks= new Map();
+    var nonPlusLinks= new Map();
 
     $(data).find('.abThemeGradientPage').find(':not([href="#plus-logo"])').closest('a').each(function(i,e){
         if(!(e.pathname.includes('kampanj') 
@@ -43,17 +43,15 @@ function parsePage(data) {
             || e.pathname.includes('/hjalpinfo/')
             || e.pathname.includes('/aftonbladet-tools/forms/')
             || e.pathname.includes('schlagerbloggen/'
-	    || e.pathname == '/')
-
-            
+	    || e.pathname == '/')     
             )){
-            nonPlusLinks.add(e.pathname);
+            nonPlusLinks.set(e.pathname,e);
         }
     });
 
     $(data).find('.abThemeGradientPage').find('[href="#plus-logo"]').closest('a')
         .each(function(i,e){
-            plusLinks.add(e.pathname);
+            plusLinks.set(e.pathname,e);
             if(nonPlusLinks.has(e.pathname)){
                 console.log("removing pluslink from nonpluslinks. this shouldnt happen", e.pathname);
                 nonPlusLinks.delete(e.pathname);
@@ -69,10 +67,9 @@ function parsePage(data) {
 
 function update(plusArticlesCacheMap, nonPlusArticlesCacheMap, plusLinks, nonPlusLinks) {
     
-    var newArticles = [];
+    let newArticles = new Map();
 
     //Move cached articles from nonPlusArticlesCacheMap to plusArticlesCacheMap
-    //$.each(plusLinks, function (i, link) {
     for (let link of plusLinks.keys()) {
         console.log(link);
         if(nonPlusArticlesCacheMap.has(link)){
@@ -91,7 +88,7 @@ function update(plusArticlesCacheMap, nonPlusArticlesCacheMap, plusLinks, nonPlu
     //$.each(nonPlusLinks, function (i, link) {
     for (let link of nonPlusLinks.keys()) {
         if (!nonPlusArticlesCacheMap.has(link)) {
-            newArticles.push(link);
+            newArticles.set(link, nonPlusLinks.get(link));
         }
     };
 
@@ -104,10 +101,18 @@ function update(plusArticlesCacheMap, nonPlusArticlesCacheMap, plusLinks, nonPlu
     }
 
 
-    if(newArticles.length > 0){
-        var deferreds = $.map(newArticles, function(link) {
-            return getArticleContent(link,nonPlusArticlesCacheMap);
+    if(newArticles.size > 0){
+        console.log("new articles");
+        
+        var deferreds = Array.from(newArticles).map(function(a){
+            return getArticleContent(a,nonPlusArticlesCacheMap);
+        })
+        /*
+        var deferreds = $.map(tmp, function(a,i) {
+            console.log(a);
+            return getArticleContent(a,nonPlusArticlesCacheMap);
         });
+        */
 
         $.when.apply($, deferreds).then(function() {
             console.log('All calls done');
@@ -120,19 +125,33 @@ function update(plusArticlesCacheMap, nonPlusArticlesCacheMap, plusLinks, nonPlu
 }
 
 
-function getArticleContent(link, cacheMap){
+function getArticleContent(a, cacheMap){
+    console.log(a);
+    let link =a[0];
+    
+    let headline = $(a[1]).find('h3').first().text();
+    console.log(headline);
 
     return jQuery.ajax({
         url: "https://www.aftonbladet.se" + link,
         success: function (data) {        
-            //let data = removeElements(data);
+            
             let result = $(data).find('main')[0];
             
-            if(result !=null){
+            result = removeElements(result);
+
+            if(result[0]){
             
-                result = whiteWashContent(result.outerHTML);
+                if(!result[0] ){
+                    console.log(result);
+                    console.log(link)
+                }
+                result = whiteWashContent(result[0].outerHTML);
                 console.log("Adding to cache", link);
-                cacheMap.set(link, compress(result));
+                let storeObject =  new Object;
+                storeObject["data"] = compress(result);
+                storeObject['headline'] = headline;
+                cacheMap.set(link, storeObject);
                
             }
         },
@@ -153,6 +172,8 @@ function whiteWashContent(str){
 
 function removeElements(data){
     let content =$(data);
+    $(content).find('[id^="abAdArea"]').remove();
+/*
     $(content).find('._2BIi5').remove();
     $(content).find('.AxIVT').remove();
     $(content).find('.Vg5tT').remove();
@@ -160,7 +181,7 @@ function removeElements(data){
     $(content).find('._2XS3K').remove();
     //read more about..
     //$(content).find('._3u81U').remove();
-    
+  */  
 
     return content; 
 }

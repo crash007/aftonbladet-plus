@@ -1,11 +1,17 @@
 function populate(){
 readCacheFromStorage(function(linksCache){
-    console.log(linksCache.length);
-    $.each(linksCache, function(index, link) {
-        console.log(link.key);
-        let name = link.key.substring(link.key.lastIndexOf("/") + 1, link.key.length).replace(new RegExp('-','g'),' '); //get name from url
-        name = name.charAt(0).toUpperCase() + name.slice(1); //Uppercase
-        $("#plus-links").prepend('<li><a target="_blank" href="https://www.aftonbladet.se'+link.key+'/promo"><h3>'+name+'</h3></a></li>');
+    
+    $.each(linksCache, function(index, article) {
+        let pathname = article.key;
+        let headline = "";
+        console.log(article);
+        if(article.value.headline){
+            headline = article.value.headline;
+        }else{
+            headline = pathname.substring(pathname.lastIndexOf("/") + 1, pathname.length).replace(new RegExp('-','g'),' '); //get name from url
+            headline = headline.charAt(0).toUpperCase() + headline.slice(1); //Uppercase
+        }
+        $("#plus-links").prepend('<li><a target="_blank" href="https://www.aftonbladet.se' + pathname + '/promo"><h3>'+headline+'</h3></a></li>');
     });
 });
 }
