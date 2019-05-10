@@ -61,24 +61,28 @@ function inject() {
                 let content = (this.value.data) ? decompress(this.value.data) : decompress(this.value); 
                 content = $(content);
                 $(content).find('picture').append('<img class="img"></img>');
-                
+		console.log($(content).find('[data-test-tag="@spp/video-asset"]').parents().eq(5).remove());
+
                 let articleImageDiv = $('h1').next().clone();
                 console.log(articleImageDiv);
                 
                 if(!$('main').hasClass('injected')){
                     $('main').replaceWith(content);
                     $('main').addClass('injected');
-                    
+                    /*
                     if($(articleImageDiv).hasClass('lcgxF')){
                         $('._1W-u7').replaceWith(articleImageDiv);
                     }
+                    */
                 }
                 
                 //$('.Vg5tT').remove(); //Remove ads
                 //$('.AxIVT').remove(); //Remove paywall wrap
                 //$('._2BIi5').remove();
 
+                // Links here doesnt work due to inject
                 $('aside').remove();
+		$('[data-test-tag="@spp/video-asset"]').parents().eq(5).remove();
 
             }
         });

@@ -1,10 +1,10 @@
 {
   "appName": {
-    "message": "Aftonbladet plus",
+    "message": "Aftonplusset",
     "description": "The title of the application, displayed in the web store."
   },
   "appDesc": {
-    "message": "Läs st.nu utan att vara pluskund. Nästan alla artiklar är fria att läsa under en timme. Under denna timme sparar detta tillägg ner de öppna artiklarn så att du kan läsa dom i lugn och ro när det passar dig", 
+    "message": "Sparar artiklar innan de har hunnit blivit en plus-artikel.",
     "description":"The description of the application, displayed in the web store."
   }
 }

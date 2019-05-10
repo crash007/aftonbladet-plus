@@ -1,8 +1,8 @@
 {
   "appName": {
-    "message": "Aftonbladet plus"
+    "message": "Aftonplusset"
   },
   "appDesc": {
-    "message": "Cache unlocked articles so you can read them later. Get notified when a new unlocked premium article is published on st.nu."
+    "message": "Caches articles so you can read them even if it has turned into a plus-article. "
   }
 }

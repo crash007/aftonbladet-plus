@@ -2,3 +2,7 @@
 ._1zYoK.AadHr{
     visibility: visible !important;
 }
+
+[id^=abAdArea]{
+    display: none;
+}

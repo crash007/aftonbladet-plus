@@ -58,11 +58,11 @@
   ],
   "options_ui": {
     "page": "options.html",
-    "open_in_tab": true
+    "open_in_tab": false
   },
   "browser_specific_settings": {
     "gecko": {
-      "id": "{182738d2-c07b-4c5d-9797-bf42adbb9c78}"
+      "id": "{182738d2-c07b-4c5d-9797-bf42adbb9c77}"
     }
   },
   "web_accessible_resources": [

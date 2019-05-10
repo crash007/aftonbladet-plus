@@ -36,11 +36,11 @@ function saveCachemapToStorageAndUpdateBadge(plusArticlesCacheMap, nonPlusArticl
                 console.log(error);
                 //Remove the oldest articles and try again
                 plusArticlesCache.shift();
-                nonPlusArticlesCache.shift();
+                //nonPlusArticlesCache.shift();
                 set(plusArticlesCache, nonPlusArticlesCache);
             } else{
                 //chrome.browserAction.setBadgeText({ "text": plusArticlesCache.length+"/"+nonPlusArticlesCache.length });
-                chrome.browserAction.setBadgeText({ "text": plusArticlesCache.length.toString() });
+                //chrome.browserAction.setBadgeText({ "text": plusArticlesCache.length.toString() });
             }
         });
     }

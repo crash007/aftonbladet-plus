@@ -1,7 +1,7 @@
 chrome.runtime.onInstalled.addListener(function () {
 
     //setBadgeText();
-    //checkForUpdates();
+    checkForUpdates();
     
     chrome.storage.local.get({'intervall': 15}, function(result){
         var intervall = result.intervall;
