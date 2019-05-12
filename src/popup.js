@@ -9,12 +9,8 @@ readCacheFromStorage(function(linksCache){
             let article = linksCache[i];
             let headline = article.value.headline;
             
-            if (headline) {
-                if(headline.startsWith(">")){
-                    headline = headline.substr(1).trim();
-                }
-                list +=  '<li><a target="_blank" href="https://www.aftonbladet.se' + article.key + '/promo"><h3>' + headline + '</h3></a></li>';
-            }
+            list +=  '<li><a target="_blank" href="https://www.aftonbladet.se' + article.key + '/promo"><h3>' + headline + '</h3></a></li>';
+        
         }
         
         $("#plus-links").append(list)
