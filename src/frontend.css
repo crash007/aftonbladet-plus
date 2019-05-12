@@ -6,3 +6,11 @@
 [id^=abAdArea]{
     display: none;
 }
+
+main div div .icon{
+    height: 1em;
+    width: 1em;
+    position: relative;
+    vertical-align: text-bottom;
+    top: -2px;
+}

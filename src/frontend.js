@@ -61,29 +61,37 @@ function inject() {
                 let content = (this.value.data) ? decompress(this.value.data) : decompress(this.value); 
                 content = $(content);
                 $(content).find('picture').append('<img class="img"></img>');
-		console.log($(content).find('[data-test-tag="@spp/video-asset"]').parents().eq(5).remove());
 
                 let articleImageDiv = $('h1').next().clone();
                 console.log(articleImageDiv);
                 
                 if(!$('main').hasClass('injected')){
-                    $('main').replaceWith(content);
-                    $('main').addClass('injected');
+
                     /*
-                    if($(articleImageDiv).hasClass('lcgxF')){
-                        $('._1W-u7').replaceWith(articleImageDiv);
-                    }
+                    $('main').fadeOut("slow", function(){
+                        $(content).hide();
+                        //var div = $("<div id='foo'>test2</div>").hide();
+                        $('main').replaceWith(content);
+                        $('main').fadeIn("slow");
+                    });
                     */
+                   
+                    $('main').replaceWith(content);
+                    
+                    $('main').addClass('injected');
+                    $('main div div ').first().prepend('<h4>Aftonplusset <svg class="icon"></svg></h4>');
+                    
+                    
+                    if($(articleImageDiv).hasClass('lcgxF')){
+                        $('[data-test-tag="@spp/video-asset"]').first().parents().eq(5).replaceWith(articleImageDiv);
+                    }
+
+                    $('aside').remove();
+                    
                 }
                 
-                //$('.Vg5tT').remove(); //Remove ads
-                //$('.AxIVT').remove(); //Remove paywall wrap
-                //$('._2BIi5').remove();
-
-                // Links here doesnt work due to inject
-                $('aside').remove();
-		$('[data-test-tag="@spp/video-asset"]').parents().eq(5).remove();
-
+                $('[data-test-tag="@spp/video-asset"]').parents().eq(5).remove();   
+               
             }
         });
 

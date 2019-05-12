@@ -20,6 +20,17 @@ ul {
     white-space: nowrap;
 }
 
-._3lW80 .e4Uu9{
+/*._3lW80 .e4Uu9{
     display: none;
+}*/
+
+.icon {
+    color: rgba(0, 0, 0, 0);
+    background: url('icon.svg') no-repeat center;
+    background-size: cover;
+    height: 1em;
+    width: 1em;
+    position: relative;
+    vertical-align: text-bottom;
+    top: -2px;
 }
