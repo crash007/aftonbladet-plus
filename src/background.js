@@ -1,11 +1,18 @@
+chrome.runtime.onMessage.addListener(function(message, sender, sendResponse){
+  console.log("message");
+  if(message.popupOpen) { 
+	chrome.browserAction.setBadgeText({ "text": ""});
+  }
+});
+
 chrome.runtime.onInstalled.addListener(function () {
 
     //setBadgeText();
     checkForUpdates();
-    
+
     chrome.storage.local.get({'intervall': 15}, function(result){
         var intervall = result.intervall;
-        
+
         chrome.alarms.create("checkerAlarm", {
             delayInMinutes: intervall,
             periodInMinutes: intervall
@@ -15,7 +22,7 @@ chrome.runtime.onInstalled.addListener(function () {
 
 chrome.alarms.onAlarm.addListener(function (alarm) {
     console.log("alarm larm");
-    if (alarm.name === "checkerAlarm") {       
+    if (alarm.name === "checkerAlarm") {
         checkForUpdates();
     }
 });
@@ -70,6 +77,7 @@ function update(plusArticlesCacheMap, nonPlusArticlesCacheMap, plusLinks, nonPlu
     let newArticles = new Map();
 
     //Move cached articles from nonPlusArticlesCacheMap to plusArticlesCacheMap
+   let newPlusCounter = 0;
     for (let link of plusLinks.keys()) {
         console.log(link);
         if(nonPlusArticlesCacheMap.has(link)){
@@ -80,9 +88,13 @@ function update(plusArticlesCacheMap, nonPlusArticlesCacheMap, plusLinks, nonPlu
                 console.log("Found plus article thats was previous open", link);
                 plusArticlesCacheMap.set(link, nonPlusArticlesCacheMap.get(link));
                 nonPlusArticlesCacheMap.delete(link);
+		newPlusCounter++;
             }
         }
     };
+    if(newPlusCounter > 0){
+	chrome.browserAction.setBadgeText({ "text": newPlusCounter.toString() });
+    }
     
     //New Articles we want to get content for
     //$.each(nonPlusLinks, function (i, link) {
@@ -99,7 +111,6 @@ function update(plusArticlesCacheMap, nonPlusArticlesCacheMap, plusLinks, nonPlu
             nonPlusArticlesCacheMap.delete(link);
         }
     }
-
 
     if(newArticles.size > 0){
         console.log("new articles");

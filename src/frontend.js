@@ -1,5 +1,3 @@
-
-
 jQuery(document).ready(function () {
 
     MutationObserver = window.MutationObserver || window.WebKitMutationObserver;

@@ -1,3 +1,5 @@
+chrome.runtime.sendMessage({popupOpen: true});
+
 function populate(){
 readCacheFromStorage(function(linksCache){
 
