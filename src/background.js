@@ -92,8 +92,18 @@ function update(plusArticlesCacheMap, nonPlusArticlesCacheMap, plusLinks, nonPlu
             }
         }
     };
+
     if(newPlusCounter > 0){
-	chrome.browserAction.setBadgeText({ "text": newPlusCounter.toString() });
+	chrome.browserAction.getBadgeText({},function(text){
+		console.log(text);
+		if(isNaN(text)){
+		        chrome.browserAction.setBadgeText({ "text": newPlusCounter.toString() });
+		}else{
+		        let b = Number(text)+newPlusCounter;
+		        chrome.browserAction.setBadgeText({ "text": b.toString() });
+		}
+	});
+
     }
     
     //New Articles we want to get content for
