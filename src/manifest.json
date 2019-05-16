@@ -1,13 +1,12 @@
 {
   "manifest_version": 2,
   "name": "__MSG_appName__",
-  "short_name": "STay",
-  "version": "0.15",
+  "short_name": "AftPlus",
+  "version": "0.1",
   "description": "__MSG_appDesc__",
   "default_locale": "sv",
   "author": "crash007",
   "permissions": [
-    "downloads",
     "storage",
     "alarms",
     "https://*.aftonbladet.se/",
