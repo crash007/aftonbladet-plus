@@ -8,9 +8,14 @@
 }
 
 main div div .icon{
-    height: 1em;
-    width: 1em;
+   
     position: relative;
     vertical-align: text-bottom;
-    top: -2px;
+    top: -1px;
+    width:2.6em;
+    overflow: visible;
+}
+
+.plusset-logo{
+    height:2em
 }

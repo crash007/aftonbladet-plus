@@ -10,7 +10,8 @@ jQuery(document).ready(function () {
             console.log(aa.target);
 
             //Title change perfom
-            inject();
+		setTimeout(inject, 400);
+            //inject();
 
         });
     });
@@ -30,7 +31,7 @@ jQuery(document).ready(function () {
 
     css.innerHTML = '.icon \{ \
                 color: rgba(0, 0, 0, 0); \
-                background: url("' + chrome.extension.getURL("icon.svg") + '") no-repeat center; \
+                background: url("' + chrome.extension.getURL("icon5.svg") + '") no-repeat center; \
                 background-size: cover;\
         }';
 
@@ -47,6 +48,7 @@ function inject() {
             let plus = $('a[href="' + link + '"] svg');
             $(plus).addClass("icon");
             $(plus).find('use').remove();
+ 	    $('a[href="' + link + '"]').attr('href', link+'/promo');
 
         });
 
@@ -65,19 +67,18 @@ function inject() {
                 
                 if(!$('main').hasClass('injected')){
 
-                    /*
+                    
                     $('main').fadeOut("slow", function(){
                         $(content).hide();
                         //var div = $("<div id='foo'>test2</div>").hide();
                         $('main').replaceWith(content);
                         $('main').fadeIn("slow");
                     });
-                    */
                    
                     $('main').replaceWith(content);
                     
                     $('main').addClass('injected');
-                    $('main div div ').first().prepend('<h4>Aftonplusset <svg class="icon"></svg></h4>');
+                    $('main div div ').first().prepend('<img class="plusset-logo" src="'+ chrome.extension.getURL("logo_aftonplusset_plus.png")+'"></img>');
                     
                     
                     if($(articleImageDiv).hasClass('lcgxF')){
