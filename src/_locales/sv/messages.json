@@ -4,7 +4,7 @@
     "description": "The title of the application, displayed in the web store."
   },
   "appDesc": {
-    "message": "Sparar artiklar innan de har hunnit blivit en plus-artikel.",
+    "message": "Lås upp Aftonbladets mest trendande plusartiklar.",
     "description":"The description of the application, displayed in the web store."
   }
 }

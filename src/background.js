@@ -1,3 +1,12 @@
+chrome.storage.local.get({'intervall': 15}, function(result){
+    var intervall = result.intervall;
+
+    chrome.alarms.create("checkerAlarm", {
+        delayInMinutes: 1,
+        periodInMinutes: intervall
+    });
+});
+
 chrome.runtime.onMessage.addListener(function(message, sender, sendResponse){
   console.log("message");
   if(message.popupOpen) { 
@@ -10,18 +19,11 @@ chrome.runtime.onInstalled.addListener(function () {
     //setBadgeText();
     checkForUpdates();
 
-    chrome.storage.local.get({'intervall': 15}, function(result){
-        var intervall = result.intervall;
-
-        chrome.alarms.create("checkerAlarm", {
-            delayInMinutes: intervall,
-            periodInMinutes: intervall
-        });
-    }); 
 });
 
 chrome.alarms.onAlarm.addListener(function (alarm) {
     console.log("alarm larm");
+    console.log(alarm);
     if (alarm.name === "checkerAlarm") {
         checkForUpdates();
     }
@@ -29,12 +31,14 @@ chrome.alarms.onAlarm.addListener(function (alarm) {
 
 
 function checkForUpdates() {
-    $.get("https://www.aftonbladet.se", function (data) {
+   downloadLinks();
+   /* $.get("https://www.aftonbladet.se", function (data) {
         parsePage(data)
-    });
+    }); */
 }
 
 //Collect new articles from main page
+/*
 function parsePage(data) {
 
     var plusLinks= new Map();
@@ -70,7 +74,7 @@ function parsePage(data) {
         update(cacheArrayToMap(plusArticlesCache), cacheArrayToMap(nonPlusArticlesCache), plusLinks, nonPlusLinks);
     });
 
-}
+}*/
 
 function update(plusArticlesCacheMap, nonPlusArticlesCacheMap, plusLinks, nonPlusLinks) {
     
@@ -139,6 +143,61 @@ function update(plusArticlesCacheMap, nonPlusArticlesCacheMap, plusLinks, nonPlu
     }
 }
 
+function downloadLinks(){
+    console.log("downloading links");
+    let sites = ["https://www.aftonbladet.se", "https://www.aftonbladet.se/sport", "https://www.aftonbladet.se/nojesbladet"];
+    let result = [ ];
+    let deferreds = Array.from(sites).map(function(a){
+        return  $.get(a, function (data) {
+            result.push($(data).find('.abThemeGradientPage'));
+        });
+    });
+
+    $.when.apply($, deferreds).then(function() {
+        console.log('All calls done');
+        console.log(result);
+        parseLinks(result);
+
+    });
+
+}
+
+function parseLinks(pages){
+    var plusLinks= new Map();
+    var nonPlusLinks= new Map();
+
+    pages.forEach(function (page, index) {
+        $(page).find(':not([href="#plus-logo"])').closest('a').each(function(i,e){
+            if(!(e.pathname.includes('kampanj')
+                || e.pathname.includes('rabattkod')
+                || e.pathname.includes('email-protection')
+                || e.pathname.includes('manager-2')
+                || e.pathname.includes('nivasvarld/')
+                || e.pathname.includes('/hc/sv')
+                || e.pathname.includes('/hjalpinfo/')
+                || e.pathname.includes('/aftonbladet-tools/forms/')
+                || e.pathname.includes('schlagerbloggen/'
+                    || e.pathname == '/')
+            )){
+                nonPlusLinks.set(e.pathname,e);
+            }
+        });
+
+        $(page).find('[href="#plus-logo"]').closest('a')
+            .each(function(i,e){
+                    plusLinks.set(e.pathname,e);
+                    if(nonPlusLinks.has(e.pathname)){
+                        console.log("removing pluslink from nonpluslinks. this shouldnt happen", e.pathname);
+                        nonPlusLinks.delete(e.pathname);
+                    }
+                }
+            );
+    });
+
+    readCacheFromStorage(function(plusArticlesCache, nonPlusArticlesCache){
+        update(cacheArrayToMap(plusArticlesCache), cacheArrayToMap(nonPlusArticlesCache), plusLinks, nonPlusLinks);
+    });
+}
 
 function getArticleContent(a, cacheMap){
     console.log(a);
